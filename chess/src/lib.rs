@@ -785,11 +785,19 @@ impl ChessBoard {
     }
 
     pub fn is_white_mated(&self) -> bool {
-        self.is_white_checked() && self.generate_moves().len() == 0
+        self.white_turn && self.is_white_checked() && self.generate_moves().len() == 0
     }
 
     pub fn is_black_mated(&self) -> bool {
-        self.is_black_checked() && self.generate_moves().len() == 0
+        !self.white_turn && self.is_black_checked() && self.generate_moves().len() == 0
+    }
+
+    pub fn is_white_stalemate(&self) -> bool {
+        self.white_turn && !self.is_white_checked() && self.generate_moves().len() == 0
+    }
+
+    pub fn is_black_stalemate(&self) -> bool {
+        !self.white_turn && !self.is_black_checked() && self.generate_moves().len() == 0
     }
 
 }
