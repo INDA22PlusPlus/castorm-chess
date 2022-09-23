@@ -127,22 +127,30 @@ impl ChessBoard {
             white_turn: true, }
     }
 
+    pub fn new_fen(fen: String) -> ChessBoard {
+        let mut board: ChessBoard = ChessBoard::new();
+
+
+
+        board
+    }
+
     pub fn print(&self) {
         println!("\n   --------------------------------");
         for r in 0..8 {
                 print!("{} |", 8 - r);
                 for c in 0..8 {
                 let square: Square = Square::new(7 - r, c);
-                if self.white_pawn.get_square(square) { print!(" B "); } 
-                else if self.black_pawn.get_square(square) { print!(" b "); } 
-                else if self.white_rook.get_square(square) { print!(" T "); } 
-                else if self.black_rook.get_square(square) { print!(" t "); } 
-                else if self.white_bishop.get_square(square) { print!(" L "); } 
-                else if self.black_bishop.get_square(square) { print!(" l "); } 
-                else if self.white_knight.get_square(square) { print!(" S "); } 
-                else if self.black_knight.get_square(square) { print!(" s "); } 
-                else if self.white_queen.get_square(square) { print!(" D "); } 
-                else if self.black_queen.get_square(square) { print!(" d "); } 
+                if self.white_pawn.get_square(square) { print!(" P "); } 
+                else if self.black_pawn.get_square(square) { print!(" p "); } 
+                else if self.white_rook.get_square(square) { print!(" R "); } 
+                else if self.black_rook.get_square(square) { print!(" r "); } 
+                else if self.white_bishop.get_square(square) { print!(" B "); } 
+                else if self.black_bishop.get_square(square) { print!(" b "); } 
+                else if self.white_knight.get_square(square) { print!(" N "); } 
+                else if self.black_knight.get_square(square) { print!(" n "); } 
+                else if self.white_queen.get_square(square) { print!(" Q "); } 
+                else if self.black_queen.get_square(square) { print!(" q "); } 
                 else if self.white_king.get_square(square) { print!(" K "); } 
                 else if self.black_king.get_square(square) { print!(" k "); } 
                 else { print!("   "); }
@@ -654,6 +662,7 @@ impl ChessBoard {
 
 
     pub fn make_move(&mut self, _move: Move) {
+        if self.is_move_valid(&_move) { return; }
         self.  white_pawn.remove_square(_move.to);
         self.  white_rook.remove_square(_move.to);
         self.white_knight.remove_square(_move.to);
