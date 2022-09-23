@@ -1,6 +1,6 @@
 ﻿# castorm-chess
  
- * Structs
+ # Structs
  
  - Square
  Represents a square on the chess board. Has two i32 values, row and column. The squares on the chess board are encoded from bottom-left to upper-right. So the bottom row is row 0 and the left-most column is column 0.
@@ -15,7 +15,7 @@
  Represents the chess board. Consists of a bool describing whether or not it is white's turn to play and 12 BitBoards, each describing the current position of each piece type, the piece types being white pawn, white rook, white knight, white bishop, white queen, white king and the same pieces for black. Together these BitBoards describe the whole chess board. 
  
  
- * Functions
+ # Functions
  
  - square_from_i32(value: i32) -> Square
  Creates the square that corresponds to a certain value (0 to 63). Encoding is the same as descibed above under BitBoard.
@@ -24,7 +24,7 @@
  Creates the square that is represented by standard chess notation, for example A1, B1 or H8. Square A1 is the same as Square 0, Square B1 is the same as Square 1 and Square H8 is the same as Square 63.
  
  
- * ChessBoard impl
+ # ChessBoard impl
  
  - new() -> ChessBoard
  A chess board can be instantiated through ChessBoard::new(); which initializes the chess board to its starting position according to standard chess rules.
@@ -52,6 +52,8 @@
  
  - print(&self)
  For debugging purposes, prints the chess board to stdout
+ 
+ All possible moves for each piece type can also be generated with logical method names (for example generate_white_pawn_moves(&self) -> Vec<Move>)
  
  Every BitBoard in a ChessBoard is public and can thus be accessed directly and modified through the BitBoard impl:
  
