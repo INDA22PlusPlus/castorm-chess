@@ -1,5 +1,7 @@
 ﻿# castorm-chess
  
+ This is total Spaghetti Code right now so dont even try to read the code because it's very difficult. Lots of code smells and so on. I've tried to write some sort of documentation below that should cover everything about the code that is important to know.
+ 
  # Structs
  
  - Square\
