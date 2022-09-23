@@ -53,9 +53,9 @@
  - print(&self)\
  For debugging purposes, prints the chess board to stdout
  
- All possible moves for each piece type can also be generated with logical method names (for example generate_white_pawn_moves(&self) -> Vec<Move>)\
+ All possible moves for each piece type can also be generated with logical method names (for example generate_white_pawn_moves(&self) -> Vec<Move>)
  
- Every BitBoard in a ChessBoard is public and can thus be accessed directly and modified through the BitBoard impl:\
+ Every BitBoard in a ChessBoard is public and can thus be accessed directly and modified through the BitBoard impl:
  
  # BitBoard impl
  
