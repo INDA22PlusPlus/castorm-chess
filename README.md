@@ -53,7 +53,7 @@
  - print(&self)\
  For debugging purposes, prints the chess board to stdout
  
- All possible moves for each piece type can also be generated with logical method names (for example generate_white_pawn_moves(&self) -> Vec<Move>)
+ All possible moves for each piece type can also be generated with logical method names (for example generate_white_pawn_moves(&self) -> Vec\<Move\>)
  
  Every BitBoard in a ChessBoard is public and can thus be accessed directly and modified through the BitBoard impl:
  
@@ -68,5 +68,5 @@
  - remove_square(&self, square: Square)\
  sets the bit corresponding to the Square square to 0
  
- - to_squares(&self) -> Vec<Squares>\
+ - to_squares(&self) -> Vec\<Squares\>\
  generates a vector of every Squares who's corresponding bit is set to 1 in the BitBoard
