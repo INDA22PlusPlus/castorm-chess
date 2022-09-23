@@ -57,7 +57,7 @@
  
  Every BitBoard in a ChessBoard is public and can thus be accessed directly and modified through the BitBoard impl:
  
- * BitBoard impl
+ # BitBoard impl
  
  - get_square(&self, square: Square) -> bool
  returns true if the bit corresponding to the Square square is set to 1, otherwise false
