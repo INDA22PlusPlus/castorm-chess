@@ -202,7 +202,7 @@ impl ChessBoard {
         (clone.white_turn && !clone.is_black_checked()) || (!clone.white_turn && !clone.is_white_checked())
     }
 
-    fn generate_white_pawn_moves(&self) -> Vec<Move> {
+    pub fn generate_white_pawn_moves(&self) -> Vec<Move> {
         let mut vec: Vec<Move> = Vec::new();
         for from in self.white_pawn.to_squares() {
             if from.column < 7 && is_bit(self.black_pieces().value, from.to_i32() + 9) {
@@ -221,7 +221,7 @@ impl ChessBoard {
         vec
     }
 
-    fn generate_white_pawn_threats(&self) -> Vec<Square> {
+    pub fn generate_white_pawn_threats(&self) -> Vec<Square> {
         let mut vec: Vec<Square> = Vec::new();
 
         for from in self.white_pawn.to_squares() {
@@ -236,7 +236,7 @@ impl ChessBoard {
         vec
     }
 
-    fn generate_white_knight_moves(&self) -> Vec<Move> {
+    pub fn generate_white_knight_moves(&self) -> Vec<Move> {
         let mut vec: Vec<Move> = Vec::new();
         for from in self.white_knight.to_squares() {
             {
@@ -291,7 +291,7 @@ impl ChessBoard {
         vec
     }
 
-    fn generate_white_king_moves(&self) -> Vec<Move> {
+    pub fn generate_white_king_moves(&self) -> Vec<Move> {
         let mut vec: Vec<Move> = Vec::new();
         for from in self.white_king.to_squares() {
             for r in -1i32..1 {
@@ -308,7 +308,7 @@ impl ChessBoard {
         vec
     }
 
-    fn generate_white_rook_moves(&self) -> Vec<Move> {
+    pub fn generate_white_rook_moves(&self) -> Vec<Move> {
         let mut vec: Vec<Move> = Vec::new();
         for from in self.white_rook.to_squares() {
             for r in 1..(8-from.row) {
@@ -339,7 +339,7 @@ impl ChessBoard {
         vec
     }
 
-    fn generate_white_bishop_moves(&self) -> Vec<Move> {
+    pub fn generate_white_bishop_moves(&self) -> Vec<Move> {
         let mut vec: Vec<Move> = Vec::new();
         for from in self.white_bishop.to_squares() {
             for i in 1..(8 - cmp::max(from.row, from.column)) {
@@ -370,7 +370,7 @@ impl ChessBoard {
         vec
     }
 
-    fn generate_white_queen_moves(&self) -> Vec<Move> {
+    pub fn generate_white_queen_moves(&self) -> Vec<Move> {
         let mut vec: Vec<Move> = Vec::new();
         for from in self.white_queen.to_squares() {
             for r in 1..(8-from.row) {
@@ -427,7 +427,7 @@ impl ChessBoard {
 
 
 
-    fn generate_black_pawn_moves(&self) -> Vec<Move> {
+    pub fn generate_black_pawn_moves(&self) -> Vec<Move> {
         let mut vec: Vec<Move> = Vec::new();
         for from in self.black_pawn.to_squares() {
             if from.column < 7 && is_bit(self.white_pieces().value, from.to_i32() + 9) {
@@ -446,7 +446,7 @@ impl ChessBoard {
         vec
     }
 
-    fn generate_black_pawn_threats(&self) -> Vec<Square> {
+    pub fn generate_black_pawn_threats(&self) -> Vec<Square> {
         let mut vec: Vec<Square> = Vec::new();
 
         for from in self.black_pawn.to_squares() {
@@ -461,7 +461,7 @@ impl ChessBoard {
         vec
     }
 
-    fn generate_black_knight_moves(&self) -> Vec<Move> {
+    pub fn generate_black_knight_moves(&self) -> Vec<Move> {
         let mut vec: Vec<Move> = Vec::new();
         for from in self.black_knight.to_squares() {
             {
@@ -516,7 +516,7 @@ impl ChessBoard {
         vec
     }
 
-    fn generate_black_king_moves(&self) -> Vec<Move> {
+    pub fn generate_black_king_moves(&self) -> Vec<Move> {
         let mut vec: Vec<Move> = Vec::new();
         for from in self.black_king.to_squares() {
             for r in -1i32..1 {
@@ -533,7 +533,7 @@ impl ChessBoard {
         vec
     }
 
-    fn generate_black_rook_moves(&self) -> Vec<Move> {
+    pub fn generate_black_rook_moves(&self) -> Vec<Move> {
         let mut vec: Vec<Move> = Vec::new();
         for from in self.black_rook.to_squares() {
             for r in 1..(8-from.row) {
@@ -564,7 +564,7 @@ impl ChessBoard {
         vec
     }
 
-    fn generate_black_bishop_moves(&self) -> Vec<Move> {
+    pub fn generate_black_bishop_moves(&self) -> Vec<Move> {
         let mut vec: Vec<Move> = Vec::new();
         for from in self.black_bishop.to_squares() {
             for i in 1..(8 - cmp::max(from.row, from.column)) {
@@ -595,7 +595,7 @@ impl ChessBoard {
         vec
     }
 
-    fn generate_black_queen_moves(&self) -> Vec<Move> {
+    pub fn generate_black_queen_moves(&self) -> Vec<Move> {
         let mut vec: Vec<Move> = Vec::new();
         for from in self.black_queen.to_squares() {
             for r in 1..(8-from.row) {
