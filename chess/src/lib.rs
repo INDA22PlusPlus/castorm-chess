@@ -3,6 +3,23 @@ pub fn add(left: usize, right: usize) -> usize {
 }
 
 use std::cmp;
+
+pub enum Piece {
+    King, 
+    Queen, 
+    Rook, 
+    Bishop, 
+    Knight, 
+    Pawn, 
+    None
+}
+
+pub enum Color {
+    White, 
+    Black, 
+    None
+}
+
 #[derive(Copy, Clone)]
 pub struct Square {
     pub row: i32, 
@@ -658,7 +675,27 @@ impl ChessBoard {
         vec
     }
 
+    pub fn get_square_piece(&self, square: Square) -> Piece {
+        if self.white_pawn.get_square(square)        { return Piece::Pawn; }
+        if self.white_rook.get_square(square)   { return Piece::Rook; }
+        if self.white_knight.get_square(square) { return Piece::Knight; }
+        if self.white_bishop.get_square(square) { return Piece::Bishop; }
+        if self.white_queen.get_square(square)  { return Piece::Queen; }
+        if self.white_king.get_square(square)   { return Piece::King;}
+        if self.black_pawn.get_square(square)   { return Piece::Pawn; }
+        if self.black_rook.get_square(square)   { return Piece::Rook;}
+        if self.black_knight.get_square(square) { return Piece::Knight; }
+        if self.black_bishop.get_square(square) { return Piece::Bishop; }
+        if self.black_queen.get_square(square)  { return Piece::Queen; }
+        if self.black_king.get_square(square)   { return Piece::King;}
+        Piece::None
+    }
 
+    pub fn get_square_color(&self, square: Square) -> Color {
+        if self.white_pieces().get_square(square) { return Color::White; }
+        if self.black_pieces().get_square(square) { return Color::Black; }
+        Color::None
+    }
 
 
     pub fn make_move(&mut self, _move: Move) {
