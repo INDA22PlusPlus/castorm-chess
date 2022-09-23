@@ -29,7 +29,7 @@
  - new() -> ChessBoard\
  A chess board can be instantiated through ChessBoard::new(); which initializes the chess board to its starting position according to standard chess rules.
  
- - generate_moves(&self) -> Vec<Move>\
+ - generate_moves(&self) -> Vec\<Move\>\
  Generates all legal moves in the current position and returns them in a vector.
  
  - make_move(&self, m: Move)\
