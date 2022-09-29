@@ -4,6 +4,7 @@ pub fn add(left: usize, right: usize) -> usize {
 
 use std::cmp;
 
+#[derive(PartialEq, Eq)]
 pub enum Piece {
     King, 
     Queen, 
@@ -14,13 +15,14 @@ pub enum Piece {
     None
 }
 
+#[derive(PartialEq, Eq)]
 pub enum Color {
     White, 
     Black, 
     None
 }
 
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, PartialEq, Eq)]
 pub struct Square {
     pub row: i32, 
     pub column: i32
