@@ -452,16 +452,14 @@ impl ChessBoard {
         vec
     }
 
-
-
     pub fn generate_black_pawn_moves(&self) -> Vec<Move> {
         let mut vec: Vec<Move> = Vec::new();
         for from in self.black_pawn.to_squares() {
-            if from.column < 7 && is_bit(self.white_pieces().value, from.to_i32() + 9) {
-                vec.push(Move::new(from, Square::new(from.row-1, from.column+1)));
-            }
-            if from.column > 0 && is_bit(self.white_pieces().value, from.to_i32() + 7) {
+            if from.column < 7 && is_bit(self.white_pieces().value, from.to_i32() - 9) {
                 vec.push(Move::new(from, Square::new(from.row-1, from.column-1)));
+            }
+            if from.column > 0 && is_bit(self.white_pieces().value, from.to_i32() - 7) {
+                vec.push(Move::new(from, Square::new(from.row-1, from.column+1)));
             }
             if is_bit(self.empty_squares().value, from.to_i32() - 8) {
                 vec.push(Move::new(from, Square::new(from.row-1, from.column)));
