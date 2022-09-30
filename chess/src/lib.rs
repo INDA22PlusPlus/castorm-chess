@@ -98,7 +98,7 @@ impl BitBoard {
     }
 }
 
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, PartialEq, Eq)]
 pub struct Move {
     pub from: Square,
     pub to: Square
