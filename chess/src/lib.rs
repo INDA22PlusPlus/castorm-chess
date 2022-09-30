@@ -272,6 +272,17 @@ impl ChessBoard {
             if from.column > 0 && is_bit(self.black_pieces().value, from.to_i32() + 7) {
                 vec.push(Move::new(from, Square::new(from.row+1, from.column-1)));
             }
+            if from.row == 4 {
+                if from.column > 0 && self.black_pawn.get_square(square_from_i32(from.to_i32() - 1)) &&
+                !self.moved_pieces.get_square(square_from_i32(from.to_i32() + 7)) {
+                    vec.push(Move::new(from, Square::new(from.row+1, from.column-1)));
+                }
+                if from.column < 7 && self.black_pawn.get_square(square_from_i32(from.to_i32() + 1)) &&
+                !self.moved_pieces.get_square(square_from_i32(from.to_i32() + 7)) {
+                    vec.push(Move::new(from, Square::new(from.row+1, from.column+1)));
+                }
+            }
+
             if is_bit(self.empty_squares().value, from.to_i32() + 8) {
                 vec.push(Move::new(from, Square::new(from.row+1, from.column)));
             } else { continue; }
@@ -509,6 +520,16 @@ impl ChessBoard {
             }
             if from.column > 0 && is_bit(self.white_pieces().value, from.to_i32() - 7) {
                 vec.push(Move::new(from, Square::new(from.row-1, from.column+1)));
+            }
+            if from.row == 3 {
+                if from.column > 0 && self.white_pawn.get_square(square_from_i32(from.to_i32() - 1)) &&
+                !self.moved_pieces.get_square(square_from_i32(from.to_i32() - 9)) {
+                    vec.push(Move::new(from, Square::new(from.row-1, from.column-1)));
+                }
+                if from.column < 7 && self.white_pawn.get_square(square_from_i32(from.to_i32() + 1)) &&
+                !self.moved_pieces.get_square(square_from_i32(from.to_i32() - 7)) {
+                    vec.push(Move::new(from, Square::new(from.row-1, from.column+1)));
+                }
             }
             if is_bit(self.empty_squares().value, from.to_i32() - 8) {
                 vec.push(Move::new(from, Square::new(from.row-1, from.column)));
@@ -770,6 +791,7 @@ impl ChessBoard {
 
     pub fn make_move(&mut self, _move: Move, validate: bool) {
         if validate && !self.is_move_valid(&_move) { return; }
+        let capture: bool = !self.empty_squares().get_square(_move.to);
         self.  white_pawn.remove_square(_move.to);
         self.  white_rook.remove_square(_move.to);
         self.white_knight.remove_square(_move.to);
@@ -784,13 +806,26 @@ impl ChessBoard {
         self.  black_king.remove_square(_move.to);
 
         if self.white_pawn.get_square(_move.from) { 
+            if _move.from.row == 4 {
+                if _move.to.column == _move.from.column + 1 && !capture {
+                    self.black_pawn.remove_square(square_from_i32(_move.from.to_i32() + 1))
+                }
+                if _move.to.column == _move.from.column - 1 && !capture {
+                    self.black_pawn.remove_square(square_from_i32(_move.from.to_i32() - 1))
+                }
+            }
+
             if _move.to.row == 7 {
                 self.white_queen.set_square(_move.to);
             } else {
                 self.white_pawn.set_square(_move.to); 
             }
+            self.moved_pieces.set_square(_move.from);
         }
-        else if self.white_rook.get_square(_move.from) {self.white_rook.set_square(_move.to); }
+        else if self.white_rook.get_square(_move.from) {
+            self.white_rook.set_square(_move.to);
+            self.moved_pieces.set_square(_move.from);
+        }
         else if self.white_knight.get_square(_move.from) {self.white_knight.set_square(_move.to); }
         else if self.white_bishop.get_square(_move.from) {self.white_bishop.set_square(_move.to); }
         else if self.white_queen.get_square(_move.from) {self.white_queen.set_square(_move.to); }
@@ -806,15 +841,29 @@ impl ChessBoard {
                     self.white_rook.set_square(square_from_string("F1".to_string()));
                 }
             }
+            self.moved_pieces.set_square(_move.from);
         }
         else if self.black_pawn.get_square(_move.from) { 
+            if _move.from.row == 3 {
+                if _move.to.column == _move.from.column + 1 && !capture {
+                    self.white_pawn.remove_square(square_from_i32(_move.from.to_i32() + 1))
+                }
+                if _move.to.column == _move.from.column - 1 && !capture {
+                    self.white_pawn.remove_square(square_from_i32(_move.from.to_i32() - 1))
+                }
+            }
+
             if _move.to.row == 0 {
                 self.black_queen.set_square(_move.to);
             } else {
                 self.black_pawn.set_square(_move.to); 
             }
+            self.moved_pieces.set_square(_move.from);
         }
-        else if self.black_rook.get_square(_move.from) {self.black_rook.set_square(_move.to); }
+        else if self.black_rook.get_square(_move.from) {
+            self.black_rook.set_square(_move.to);
+            self.moved_pieces.set_square(_move.from); 
+        }
         else if self.black_knight.get_square(_move.from) {self.black_knight.set_square(_move.to); }
         else if self.black_bishop.get_square(_move.from) {self.black_bishop.set_square(_move.to); }
         else if self.black_queen.get_square(_move.from) {self.black_queen.set_square(_move.to); }
@@ -830,6 +879,7 @@ impl ChessBoard {
                     self.black_rook.set_square(square_from_string("F8".to_string()));
                 }
             }
+            self.moved_pieces.set_square(_move.from);
         }
 
         self.  white_pawn.remove_square(_move.from);
@@ -846,7 +896,6 @@ impl ChessBoard {
         self.  black_king.remove_square(_move.from);
         
         self.white_turn = !self.white_turn;
-        self.moved_pieces.set_square(_move.from);
     }
 
     pub fn is_white_checked(&self) -> bool {
