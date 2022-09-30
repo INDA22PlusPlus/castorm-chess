@@ -699,6 +699,10 @@ impl ChessBoard {
         Color::None
     }
 
+    pub fn get_legal_moves_from_square(&self, from: Square) -> Vec<Move> {
+        self.generate_moves().into_iter().filter(|m| m.from == from).collect::<Vec<Move>>()
+    }
+
 
     pub fn make_move(&mut self, _move: Move) {
         //if self.is_move_valid(&_move) { return; }
