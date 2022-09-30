@@ -701,7 +701,7 @@ impl ChessBoard {
 
 
     pub fn make_move(&mut self, _move: Move) {
-        if self.is_move_valid(&_move) { return; }
+        //if self.is_move_valid(&_move) { return; }
         self.  white_pawn.remove_square(_move.to);
         self.  white_rook.remove_square(_move.to);
         self.white_knight.remove_square(_move.to);
