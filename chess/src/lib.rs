@@ -758,8 +758,12 @@ impl ChessBoard {
                 self.white_pawn.set_square(_move.to); 
             }
         }
-        else if self.white_rook.get_square(_move.from) {
-            self.white_rook.set_square(_move.to); 
+        else if self.white_rook.get_square(_move.from) {self.white_rook.set_square(_move.to); }
+        else if self.white_knight.get_square(_move.from) {self.white_knight.set_square(_move.to); }
+        else if self.white_bishop.get_square(_move.from) {self.white_bishop.set_square(_move.to); }
+        else if self.white_queen.get_square(_move.from) {self.white_queen.set_square(_move.to); }
+        else if self.white_king.get_square(_move.from) {
+            self.white_king.set_square(_move.to); 
             if _move.from == square_from_string("E1".to_string()) {
                 if _move.to == square_from_string("C1".to_string()) {
                     self.white_rook.remove_square(square_from_string("A1".to_string()));
@@ -771,10 +775,6 @@ impl ChessBoard {
                 }
             }
         }
-        else if self.white_knight.get_square(_move.from) {self.white_knight.set_square(_move.to); }
-        else if self.white_bishop.get_square(_move.from) {self.white_bishop.set_square(_move.to); }
-        else if self.white_queen.get_square(_move.from) {self.white_queen.set_square(_move.to); }
-        else if self.white_king.get_square(_move.from) {self.white_king.set_square(_move.to); }
         else if self.black_pawn.get_square(_move.from) { 
             if _move.to.row == 0 {
                 self.black_queen.set_square(_move.to);
