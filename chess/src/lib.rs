@@ -226,6 +226,38 @@ impl ChessBoard {
     }
 
     pub fn is_move_valid(&self, m: &Move) -> bool {
+        if m.from == square_from_string("E1".to_string()) {
+            if m.to == square_from_string("C1".to_string()) && 
+            !self.is_move_valid(&Move::new(
+                square_from_string("E1".to_string()), 
+                square_from_string("D1".to_string()))
+            ) {
+                return false;
+            }
+            if m.to == square_from_string("G1".to_string()) && 
+            !self.is_move_valid(&Move::new(
+                square_from_string("E1".to_string()), 
+                square_from_string("F1".to_string()))
+            ) {
+                return false;
+            }
+        }
+        if m.from == square_from_string("E8".to_string()) {
+            if m.to == square_from_string("C8".to_string()) && 
+            !self.is_move_valid(&Move::new(
+                square_from_string("E8".to_string()), 
+                square_from_string("D8".to_string()))
+            ) {
+                return false;
+            }
+            if m.to == square_from_string("G8".to_string()) && 
+            !self.is_move_valid(&Move::new(
+                square_from_string("E8".to_string()), 
+                square_from_string("F8".to_string()))
+            ) {
+                return false;
+            }
+        }
         let mut clone: ChessBoard = self.clone();
         clone.make_move(*m, false);
         (clone.white_turn && !clone.is_black_checked()) || (!clone.white_turn && !clone.is_white_checked())
