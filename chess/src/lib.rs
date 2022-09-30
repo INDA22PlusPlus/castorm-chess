@@ -628,25 +628,25 @@ impl ChessBoard {
                 let to: Square = Square::new(from.row+r, from.column);
                 if self.black_pieces().get_square(to) { break; }
                 vec.push(Move::new(from, to));
-                if self.black_pieces().get_square(to) { break; }
+                if self.white_pieces().get_square(to) { break; }
             }
             for r in 1..(from.row + 1) {
                 let to: Square = Square::new(from.row-r, from.column);
                 if self.black_pieces().get_square(to) { break; }
                 vec.push(Move::new(from, to));
-                if self.black_pieces().get_square(to) { break; }
+                if self.white_pieces().get_square(to) { break; }
             }
             for c in 1..(8-from.column) {
                 let to: Square = Square::new(from.row, from.column + c);
                 if self.black_pieces().get_square(to) { break; }
                 vec.push(Move::new(from, to));
-                if self.black_pieces().get_square(to) { break; }
+                if self.white_pieces().get_square(to) { break; }
             }
             for c in 1..(from.column + 1) {
                 let to: Square = Square::new(from.row, from.column - c);
                 if self.black_pieces().get_square(to) { break; }
                 vec.push(Move::new(from, to));
-                if self.black_pieces().get_square(to) { break; }
+                if self.white_pieces().get_square(to) { break; }
             }
         }
         vec
@@ -659,25 +659,25 @@ impl ChessBoard {
                 let to: Square = Square::new(from.row + i, from.column + i);
                 if self.black_pieces().get_square(to) { break; }
                 vec.push(Move::new(from, to));
-                if self.black_pieces().get_square(to) { break; }
+                if self.white_pieces().get_square(to) { break; }
             }
             for i in 1..(cmp::min(from.row, from.column) + 1) {
                 let to: Square = Square::new(from.row - i, from.column - i);
                 if self.black_pieces().get_square(to) { break; }
                 vec.push(Move::new(from, to));
-                if self.black_pieces().get_square(to) { break; }
+                if self.white_pieces().get_square(to) { break; }
             }
             for i in 1..(cmp::min(from.row + 1, 8 - from.column)) {
                 let to: Square = Square::new(from.row - i, from.column + i);
                 if self.black_pieces().get_square(to) { break; }
                 vec.push(Move::new(from, to));
-                if self.black_pieces().get_square(to) { break; }
+                if self.white_pieces().get_square(to) { break; }
             }
             for i in 1..(cmp::min(8 - from.row, from.column + 1)) {
                 let to: Square = Square::new(from.row + i, from.column - i);
                 if self.black_pieces().get_square(to) { break; }
                 vec.push(Move::new(from, to));
-                if self.black_pieces().get_square(to) { break; }
+                if self.white_pieces().get_square(to) { break; }
             }
         }
         vec
@@ -690,49 +690,49 @@ impl ChessBoard {
                 let to: Square = Square::new(from.row+r, from.column);
                 if self.black_pieces().get_square(to) { break; }
                 vec.push(Move::new(from, to));
-                if self.black_pieces().get_square(to) { break; }
+                if self.white_pieces().get_square(to) { break; }
             }
             for r in 1..(from.row + 1) {
                 let to: Square = Square::new(from.row-r, from.column);
                 if self.black_pieces().get_square(to) { break; }
                 vec.push(Move::new(from, to));
-                if self.black_pieces().get_square(to) { break; }
+                if self.white_pieces().get_square(to) { break; }
             }
             for c in 1..(8-from.column) {
                 let to: Square = Square::new(from.row, from.column + c);
                 if self.black_pieces().get_square(to) { break; }
                 vec.push(Move::new(from, to));
-                if self.black_pieces().get_square(to) { break; }
+                if self.white_pieces().get_square(to) { break; }
             }
             for c in 1..(from.column + 1) {
                 let to: Square = Square::new(from.row, from.column - c);
                 if self.black_pieces().get_square(to) { break; }
                 vec.push(Move::new(from, to));
-                if self.black_pieces().get_square(to) { break; }
+                if self.white_pieces().get_square(to) { break; }
             }
             for i in 1..(8 - cmp::max(from.row, from.column)) {
                 let to: Square = Square::new(from.row + i, from.column + i);
                 if self.black_pieces().get_square(to) { break; }
                 vec.push(Move::new(from, to));
-                if self.black_pieces().get_square(to) { break; }
+                if self.white_pieces().get_square(to) { break; }
             }
             for i in 1..(cmp::min(from.row, from.column) + 1) {
                 let to: Square = Square::new(from.row - i, from.column - i);
                 if self.black_pieces().get_square(to) { break; }
                 vec.push(Move::new(from, to));
-                if self.black_pieces().get_square(to) { break; }
+                if self.white_pieces().get_square(to) { break; }
             }
             for i in 1..(cmp::min(from.row + 1, 8 - from.column)) {
                 let to: Square = Square::new(from.row - i, from.column + i);
                 if self.black_pieces().get_square(to) { break; }
                 vec.push(Move::new(from, to));
-                if self.black_pieces().get_square(to) { break; }
+                if self.white_pieces().get_square(to) { break; }
             }
             for i in 1..(cmp::min(8 - from.row, from.column + 1)) {
                 let to: Square = Square::new(from.row + i, from.column - i);
                 if self.black_pieces().get_square(to) { break; }
                 vec.push(Move::new(from, to));
-                if self.black_pieces().get_square(to) { break; }
+                if self.white_pieces().get_square(to) { break; }
             }
         }
         vec
