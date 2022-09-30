@@ -124,6 +124,7 @@ pub struct ChessBoard {
     pub black_bishop: BitBoard,
     pub black_queen: BitBoard,
     pub black_king: BitBoard,
+    pub moved_pieces: BitBoard,
     pub white_turn: bool,
 }
 
@@ -143,6 +144,7 @@ impl ChessBoard {
             black_bishop: BitBoard::new((1 << 58) + (1 << 61)), 
             black_queen: BitBoard::new(1 << 59),  
             black_king: BitBoard::new(1 << 60), 
+            moved_pieces: BitBoard::new(0),
             white_turn: true, }
     }
 
@@ -225,7 +227,7 @@ impl ChessBoard {
 
     pub fn is_move_valid(&self, m: &Move) -> bool {
         let mut clone: ChessBoard = self.clone();
-        clone.make_move(*m);
+        clone.make_move(*m, false);
         (clone.white_turn && !clone.is_black_checked()) || (!clone.white_turn && !clone.is_white_checked())
     }
 
@@ -702,11 +704,11 @@ impl ChessBoard {
     }
 
     pub fn make_move_string(&mut self, from: &str, to: &str) {
-        self.make_move(Move::new(square_from_string(from.to_string()), square_from_string(to.to_string())));
+        self.make_move(Move::new(square_from_string(from.to_string()), square_from_string(to.to_string())), true);
     }
 
-    pub fn make_move(&mut self, _move: Move) {
-        //if self.is_move_valid(&_move) { return; }
+    pub fn make_move(&mut self, _move: Move, validate: bool) {
+        if validate && !self.is_move_valid(&_move) { return; }
         self.  white_pawn.remove_square(_move.to);
         self.  white_rook.remove_square(_move.to);
         self.white_knight.remove_square(_move.to);
@@ -720,13 +722,25 @@ impl ChessBoard {
         self. black_queen.remove_square(_move.to);
         self.  black_king.remove_square(_move.to);
 
-        if self.white_pawn.get_square(_move.from) { self.white_pawn.set_square(_move.to); }
+        if self.white_pawn.get_square(_move.from) { 
+            if _move.to.row == 7 {
+                self.white_queen.set_square(_move.to);
+            } else {
+                self.white_pawn.set_square(_move.to); 
+            }
+        }
         else if self.white_rook.get_square(_move.from) {self.white_rook.set_square(_move.to); }
         else if self.white_knight.get_square(_move.from) {self.white_knight.set_square(_move.to); }
         else if self.white_bishop.get_square(_move.from) {self.white_bishop.set_square(_move.to); }
         else if self.white_queen.get_square(_move.from) {self.white_queen.set_square(_move.to); }
         else if self.white_king.get_square(_move.from) {self.white_king.set_square(_move.to); }
-        else if self.black_pawn.get_square(_move.from) { self.black_pawn.set_square(_move.to); }
+        else if self.black_pawn.get_square(_move.from) { 
+            if _move.to.row == 0 {
+                self.black_queen.set_square(_move.to);
+            } else {
+                self.black_pawn.set_square(_move.to); 
+            }
+        }
         else if self.black_rook.get_square(_move.from) {self.black_rook.set_square(_move.to); }
         else if self.black_knight.get_square(_move.from) {self.black_knight.set_square(_move.to); }
         else if self.black_bishop.get_square(_move.from) {self.black_bishop.set_square(_move.to); }
@@ -747,6 +761,7 @@ impl ChessBoard {
         self.  black_king.remove_square(_move.from);
         
         self.white_turn = !self.white_turn;
+        self.moved_pieces.set_square(_move.from);
     }
 
     pub fn is_white_checked(&self) -> bool {
