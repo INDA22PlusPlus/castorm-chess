@@ -333,6 +333,21 @@ impl ChessBoard {
                 }
             }
         }
+
+        if  !self.moved_pieces.get_square(square_from_string("E1".to_string())) &&
+            !self.moved_pieces.get_square(square_from_string("H1".to_string())) &&
+            self.empty_squares().get_square(square_from_string("F1".to_string())) &&
+            self.empty_squares().get_square(square_from_string("G1".to_string())) {
+                vec.push(Move::new(square_from_string("E1".to_string()), square_from_string("G1".to_string())));
+            }
+
+        if  !self.moved_pieces.get_square(square_from_string("E1".to_string())) &&
+            !self.moved_pieces.get_square(square_from_string("A1".to_string())) &&
+            self.empty_squares().get_square(square_from_string("B1".to_string())) &&
+            self.empty_squares().get_square(square_from_string("C1".to_string())) &&
+            self.empty_squares().get_square(square_from_string("D1".to_string())) {
+                vec.push(Move::new(square_from_string("E1".to_string()), square_from_string("C1".to_string())));
+            }
         
         vec
     }
@@ -556,6 +571,20 @@ impl ChessBoard {
                 }
             }
         }
+        if  !self.moved_pieces.get_square(square_from_string("E8".to_string())) &&
+            !self.moved_pieces.get_square(square_from_string("H8".to_string())) &&
+            self.empty_squares().get_square(square_from_string("F8".to_string())) &&
+            self.empty_squares().get_square(square_from_string("G8".to_string())) {
+                vec.push(Move::new(square_from_string("E8".to_string()), square_from_string("G8".to_string())));
+            }
+
+        if  !self.moved_pieces.get_square(square_from_string("E8".to_string())) &&
+            !self.moved_pieces.get_square(square_from_string("A8".to_string())) &&
+            self.empty_squares().get_square(square_from_string("B8".to_string())) &&
+            self.empty_squares().get_square(square_from_string("C8".to_string())) &&
+            self.empty_squares().get_square(square_from_string("D8".to_string())) {
+                vec.push(Move::new(square_from_string("E8".to_string()), square_from_string("C8".to_string())));
+            }
         
         vec
     }
@@ -729,7 +758,19 @@ impl ChessBoard {
                 self.white_pawn.set_square(_move.to); 
             }
         }
-        else if self.white_rook.get_square(_move.from) {self.white_rook.set_square(_move.to); }
+        else if self.white_rook.get_square(_move.from) {
+            self.white_rook.set_square(_move.to); 
+            if _move.from == square_from_string("E1".to_string()) {
+                if _move.to == square_from_string("C1".to_string()) {
+                    self.white_rook.remove_square(square_from_string("A1".to_string()));
+                    self.white_rook.set_square(square_from_string("D1".to_string()));
+                }
+                if _move.to == square_from_string("G1".to_string()) {
+                    self.white_rook.remove_square(square_from_string("H1".to_string()));
+                    self.white_rook.set_square(square_from_string("F1".to_string()));
+                }
+            }
+        }
         else if self.white_knight.get_square(_move.from) {self.white_knight.set_square(_move.to); }
         else if self.white_bishop.get_square(_move.from) {self.white_bishop.set_square(_move.to); }
         else if self.white_queen.get_square(_move.from) {self.white_queen.set_square(_move.to); }
@@ -745,7 +786,19 @@ impl ChessBoard {
         else if self.black_knight.get_square(_move.from) {self.black_knight.set_square(_move.to); }
         else if self.black_bishop.get_square(_move.from) {self.black_bishop.set_square(_move.to); }
         else if self.black_queen.get_square(_move.from) {self.black_queen.set_square(_move.to); }
-        else if self.black_king.get_square(_move.from) {self.black_king.set_square(_move.to); }
+        else if self.black_king.get_square(_move.from) {
+            self.black_king.set_square(_move.to); 
+            if _move.from == square_from_string("E8".to_string()) {
+                if _move.to == square_from_string("C8".to_string()) {
+                    self.black_rook.remove_square(square_from_string("A8".to_string()));
+                    self.black_rook.set_square(square_from_string("D8".to_string()));
+                }
+                if _move.to == square_from_string("G8".to_string()) {
+                    self.black_rook.remove_square(square_from_string("H8".to_string()));
+                    self.black_rook.set_square(square_from_string("F8".to_string()));
+                }
+            }
+        }
 
         self.  white_pawn.remove_square(_move.from);
         self.  white_rook.remove_square(_move.from);
