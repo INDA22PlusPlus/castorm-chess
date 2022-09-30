@@ -321,8 +321,8 @@ impl ChessBoard {
     pub fn generate_white_king_moves(&self) -> Vec<Move> {
         let mut vec: Vec<Move> = Vec::new();
         for from in self.white_king.to_squares() {
-            for r in -1i32..1 {
-                for c in -1i32..1 {
+            for r in -1i32..2 {
+                for c in -1i32..2 {
                     if r == 0 && c == 0 { continue; }
                     let to: Square = Square::new(from.row + r, from.column + c);
                     if self.white_pieces().get_square(to) { continue; }
@@ -544,8 +544,8 @@ impl ChessBoard {
     pub fn generate_black_king_moves(&self) -> Vec<Move> {
         let mut vec: Vec<Move> = Vec::new();
         for from in self.black_king.to_squares() {
-            for r in -1i32..1 {
-                for c in -1i32..1 {
+            for r in -1i32..2 {
+                for c in -1i32..2 {
                     if r == 0 && c == 0 { continue; }
                     let to: Square = Square::new(from.row + r, from.column + c);
                     if self.black_pieces().get_square(to) { continue; }
@@ -701,6 +701,9 @@ impl ChessBoard {
         self.generate_moves().into_iter().filter(|m| m.from == from).collect::<Vec<Move>>()
     }
 
+    pub fn make_move_string(&mut self, from: &str, to: &str) {
+        self.make_move(Move::new(square_from_string(from.to_string()), square_from_string(to.to_string())));
+    }
 
     pub fn make_move(&mut self, _move: Move) {
         //if self.is_move_valid(&_move) { return; }
@@ -817,5 +820,17 @@ mod tests {
     fn it_works() {
         let result = add(2, 2);
         assert_eq!(result, 4);
+    }
+
+    #[test]
+    fn move_king() {
+        let mut b = ChessBoard::new();
+        b.make_move_string("E2", "E4");
+        b.make_move_string("E7", "E5");
+        for m in b.generate_moves() {
+            println!("{} -> {}", m.from.to_string(), m.to.to_string());
+        }
+        b.print();
+        
     }
 }
